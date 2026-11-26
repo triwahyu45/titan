@@ -53,6 +53,14 @@ Isolate time-critical gamepad/UART streaming from slow blocking sensors (e.g., `
 
 ---
 
+## 4.5. STM32 CAN-Bus Distributed Actuators & Watchdog
+
+- **Bitmask Command Packing**: Pack actuator triggers as bitmasks in `can.command[0..1]` and mode enums in `can.command[2]` over `CAN1`.
+- **Watchdog & Remote Pit Reset**: Call a `CAN_Fail()` timeout check every `while(1)` tick and dedicate a command bit to `NVIC_SystemReset()` for instant remote recovery without power-cycling.
+- **Edge-Detected Toggles & Vision-to-Encoder Mapping**: Guard pneumatic/shooter toggles with `cmd != prev_cmd` edge detection, and map camera pixel offsets linearly to encoder ticks: `scale = (|MAX_ENC| + |MIN_ENC|) / (|MAX_CAM| + |MIN_CAM|)`.
+
+---
+
 ## 5. Five Verified Field Firmware Pitfalls
 
 | # | Pitfall | Root Cause | Verified Fix |
