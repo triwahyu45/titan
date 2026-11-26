@@ -7,4 +7,4 @@
 
 ## 2. Kinematics & CAD-to-Simulation (`FreeCAD` + `MuJoCo`)
 - **Omni / Swerve Kinematics**: Verify wheel angle sign conventions (`atan2(vy, vx)`), chassis-to-wheel velocity matrix symmetry, and motor saturation clamping (`max_rpm`) in unit tests before hardware deployment.
-- **CAD-to-Sim Loop**: Author parametric parts in FreeCAD (`freecad-forge-mcp`) → export clean watertight STEP/STL meshes → normalize inertia/collision geometry in MuJoCo (`MJCF`) and verify joint limits visually.
+- **CAD-to-Sim Loop**: Author parametric parts in FreeCAD (`FORGE`) → export clean watertight STEP/STL meshes → normalize inertia/collision geometry in MuJoCo (`MJCF`) and verify joint limits visually.
