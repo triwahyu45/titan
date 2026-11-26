@@ -25,7 +25,7 @@ git clone https://github.com/triwahyu45/TITAN.git ~/.claude/skills/TITAN
 
 - **Runtime / Tools**: **PlatformIO CLI** (`pio`) for ESP32/STM32; **Python 3.10+** (`ultralytics`, `opencv-python`, `onnxruntime`/`tensorrt`, `mujoco`) for CV & sim; **ROS2** on Ubuntu/NUC
 - **MCP Servers**: Optional: `freecad` (if generating CAD meshes from FreeCAD)
-- **Related Skills**: Optional pairing with [`forge`](https://github.com/triwahyu45/forge) for parametric CAD before MuJoCo export
+- **Related Skills**: Optional pairing with [`forge`](https://github.com/triwahyu45/FORGE) for parametric CAD before MuJoCo export
 - **API Keys / Secrets**: None
 
 ---
