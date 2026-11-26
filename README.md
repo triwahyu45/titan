@@ -10,7 +10,7 @@ Clone this skill into your agent's global or project skills directory:
 
 | Agent | Global Install Path | Project-Local Path |
 | :--- | :--- | :--- |
-| **Antigravity** | `~/.gemini/config/skills/TITAN` | `.agents/skills/TITAN` |
+| **Antigravity** | Global Antigravity skills dir | `.agents/skills/TITAN` |
 | **Claude Code** | `~/.claude/skills/TITAN` | `.claude/skills/TITAN` |
 | **OpenAI Codex** | `~/.codex/skills/TITAN` | `.agents/skills/TITAN` |
 
@@ -35,7 +35,10 @@ git clone https://github.com/triwahyu45/TITAN.git ~/.claude/skills/TITAN
 - `SKILL.md` — Field verification rules & Self-Audit Gate
 - `references/edge-cv-and-nuc.md` — YOLOv8/OpenCV FPS tuning, Ubuntu/NUC ops, & competition recovery
 - `references/embedded-and-cad-sim.md` — PlatformIO flash/serial, 128x64 OLED, kinematics, & FreeCAD->MuJoCo
+- `references/ichibot-chios-firmware.md` — CHIOS 14-sensor LF firmware, LQR/PID/RPM PI, odometry, & quirks
+- `references/ichibot-plan-and-sensors.md` — 37 sensor trigger masks, 21-field Plan/Index, OLED UI, & `.xlsx` backup
+- `references/ichibot-sim-physics.md` — 4 kHz 2D tire-slip physics, SDF sensor model, & built-in tracks/plans
 
 ## When to Trigger / Search Keywords
 
-`titan`, `ros2`, `yolov8`, `opencv fps`, `esp32`, `stm32`, `platformio`, `omni kinematics`, `swerve`, `mujoco`, `nuc`
+`titan`, `ros2`, `yolov8`, `opencv fps`, `esp32`, `stm32`, `platformio`, `omni kinematics`, `swerve`, `mujoco`, `nuc`, `ichibot`, `chios`, `line follower`, `lqr`, `plan/index`
