@@ -1,5 +1,5 @@
 ---
-name: titan
+name: TITAN
 description: Robotics, Edge CV & Embedded Systems Ops playbook covering Linux/NUC ROS2 & omni/swerve kinematics, YOLOv8/OpenCV FPS optimization, ESP32/STM32 PlatformIO serial & OLED workflows, H-1 competition recovery, and CAD-to-Simulation (FreeCAD MCP + MuJoCo).
 ---
 

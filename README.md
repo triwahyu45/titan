@@ -1,4 +1,4 @@
-# titan — Robotics, Edge CV & Embedded Systems Ops
+# TITAN — Robotics, Edge CV & Embedded Systems Ops
 
 AI Agent Skill for **Antigravity**, **Claude Code**, and **OpenAI Codex**. Field playbook for Linux/NUC ROS2, omni/swerve kinematics, YOLOv8/OpenCV FPS optimization, ESP32/STM32 PlatformIO serial & OLED workflows, and FreeCAD-to-MuJoCo simulation.
 
@@ -10,13 +10,13 @@ Clone this skill into your agent's global or project skills directory:
 
 | Agent | Global Install Path | Project-Local Path |
 | :--- | :--- | :--- |
-| **Antigravity** | `~/.gemini/config/skills/titan` | `.agents/skills/titan` |
-| **Claude Code** | `~/.claude/skills/titan` | `.claude/skills/titan` |
-| **OpenAI Codex** | `~/.codex/skills/titan` | `.agents/skills/titan` |
+| **Antigravity** | `~/.gemini/config/skills/TITAN` | `.agents/skills/TITAN` |
+| **Claude Code** | `~/.claude/skills/TITAN` | `.claude/skills/TITAN` |
+| **OpenAI Codex** | `~/.codex/skills/TITAN` | `.agents/skills/TITAN` |
 
 ```bash
 # Example (Antigravity / Claude Code / Codex — pick your path):
-git clone https://github.com/triwahyu45/titan.git ~/.claude/skills/titan
+git clone https://github.com/triwahyu45/TITAN.git ~/.claude/skills/TITAN
 ```
 
 ---
