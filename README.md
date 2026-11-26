@@ -37,10 +37,11 @@ git clone https://github.com/triwahyu45/TITAN.git ~/.claude/skills/TITAN
 - `references/embedded-and-cad-sim.md` — PlatformIO flash/serial, 128x64 OLED, kinematics, & FreeCAD->MuJoCo
 - `references/embedded-and-cad-sim.md` — PlatformIO, OLED, & CAD-to-Sim
 - `references/nonblocking-stm32-esp32-nuc.md` — Non-blocking STM32F4/ESP32 FreeRTOS, 3-wheel odometry, & 5 field pitfalls
+- `references/robotics-sim-and-control.md` — Line follower geometry/rollover, PID windup/noise, IMU fusion, Nav2 A*/MCAP, & 500 Hz NumPy RK4 sim
 - `references/ichibot-chios-firmware.md` — CHIOS 14-sensor LF firmware, LQR/PID/RPM PI, odometry, & quirks
 - `references/ichibot-plan-and-sensors.md` — 37 sensor trigger masks, 21-field Plan/Index, OLED UI, & `.xlsx` backup
 - `references/ichibot-sim-physics.md` — 4 kHz 2D tire-slip physics, SDF sensor model, & built-in tracks/plans
 
 ## When to Trigger / Search Keywords
 
-`titan`, `ros2`, `yolov8`, `opencv fps`, `esp32`, `stm32`, `freertos`, `odometry`, `platformio`, `omni kinematics`, `swerve`, `mujoco`, `nuc`, `ichibot`, `chios`, `line follower`, `lqr`, `plan/index`
+`titan`, `ros2`, `yolov8`, `opencv fps`, `esp32`, `stm32`, `freertos`, `odometry`, `pid`, `imu`, `a*`, `mcap`, `rk4`, `platformio`, `omni kinematics`, `swerve`, `mujoco`, `nuc`, `ichibot`, `chios`, `line follower`, `lqr`, `plan/index`
