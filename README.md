@@ -1,7 +1,41 @@
-# titan
+# titan — Robotics, Edge CV & Embedded Systems Ops
 
-Robotics, Edge CV & Embedded Systems Ops skill covering ROS2/NUC Linux tuning, YOLOv8 FPS optimization, ESP32/STM32 PlatformIO serial workflows, H-1 competition recovery, and FreeCAD-to-MuJoCo workflows.
+AI Agent Skill for **Antigravity**, **Claude Code**, and **OpenAI Codex**. Field playbook for Linux/NUC ROS2, omni/swerve kinematics, YOLOv8/OpenCV FPS optimization, ESP32/STM32 PlatformIO serial & OLED workflows, and FreeCAD-to-MuJoCo simulation.
 
-## Changelog
-- `v1.1.0`: Added Mandatory Self-Audit & Revise-Before-Delivery Gate (FPS benchmark, serial verification, and MuJoCo joint check).
-- `v1.0.0`: Initial release distilled from robotics, edge vision, and embedded engineering workflows.
+---
+
+## Quick Install (Claude Code / Codex / Antigravity)
+
+Clone this skill into your agent's global or project skills directory:
+
+| Agent | Global Install Path | Project-Local Path |
+| :--- | :--- | :--- |
+| **Antigravity** | `~/.gemini/config/skills/titan` | `.agents/skills/titan` |
+| **Claude Code** | `~/.claude/skills/titan` | `.claude/skills/titan` |
+| **OpenAI Codex** | `~/.codex/skills/titan` | `.agents/skills/titan` |
+
+```bash
+# Example (Antigravity / Claude Code / Codex — pick your path):
+git clone https://github.com/triwahyu45/titan.git ~/.claude/skills/titan
+```
+
+---
+
+## Requirements & Dependencies (For Agents)
+
+- **Runtime / Tools**: **PlatformIO CLI** (`pio`) for ESP32/STM32; **Python 3.10+** (`ultralytics`, `opencv-python`, `onnxruntime`/`tensorrt`, `mujoco`) for CV & sim; **ROS2** on Ubuntu/NUC
+- **MCP Servers**: Optional: `freecad` (if generating CAD meshes from FreeCAD)
+- **Related Skills**: Optional pairing with [`forge`](https://github.com/triwahyu45/forge) for parametric CAD before MuJoCo export
+- **API Keys / Secrets**: None
+
+---
+
+## Included Files
+
+- `SKILL.md` — Field verification rules & Self-Audit Gate
+- `references/edge-cv-and-nuc.md` — YOLOv8/OpenCV FPS tuning, Ubuntu/NUC ops, & competition recovery
+- `references/embedded-and-cad-sim.md` — PlatformIO flash/serial, 128x64 OLED, kinematics, & FreeCAD->MuJoCo
+
+## When to Trigger / Search Keywords
+
+`titan`, `ros2`, `yolov8`, `opencv fps`, `esp32`, `stm32`, `platformio`, `omni kinematics`, `swerve`, `mujoco`, `nuc`
