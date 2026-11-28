@@ -91,3 +91,41 @@ Filename: `<robotCode>_Backup_<YYYY-MM-DD>.xlsx`. Five sheet types:
   2. `CALIBRATE`: `Auto Rotate` -> Step 1 (center on line) -> Spin `720°`/`4s` -> Step 2 (`Sensitivity %`) -> Step 3 (`CAL0..4`) -> `Check Sensor`.
   3. `HARDWARE`: `Line Sensor` (`Calibration`, `Check Sensor` with live bars + `Geleng`/rotate), `Motor DC` (`Speed`, `Delay`, `Mode`, `Test Now`, `RPM Control On/Off`, `RPM Multiply`, `Throttle`), `Encoder` (`Enc Val`, `Odo Dist`, `Odo Angle`, `PPR`, `Wheelbase`, `Wheel Diameter`), `Buzzer`, `Run Control` (`LQR`/`PID`), `LQR/PID Setting`.
   4. `ADVANCE`: `Checkpoint`, `Mirror Plan` (`Range 1..5` + `Mirror Now`), `Plan Display` (`Normal`/`Expert`), `Reset Setting`, `Reset Data Plan`, `Default Speed`, `Lost Line`, `Speed Calibrate`, `Robot Name`, `Plan Name`.
+
+### Verified 6-Button Entry Shortcuts (`c42b584801af4d19.js`) & Built-In Plans
+- **Wrap-Around (`E(..., wrap=true)`)**:
+  - `stopAtIndex`: `150` + `UPR` once -> `0`.
+  - `TB` (and `TA`): `0` + `DWNR` once -> `99999`.
+  - `sensor_value`: `0` + `DWNR` wraps `0 -> 36 -> ...` (faster for modes `20..36`, e.g. `21` is 16 `DWNR` presses).
+- **Hold Acceleration (`>1000ms` pointerdown, `90ms` repeat)**: Steps by `10` on `D`, `SA`, `TA`, `SB`, `TB` and by `5` on `L`, `R`, `stopAtIndex`, `selIndex`.
+- **Action Preset Rule**: Changing `ACT` overwrites `L`, `R`, and `D` with `DEFAULT_ACTION[ACT]` — always set `ACT` **before** tuning `L`, `R`, or `D`.
+- **Built-In Training Plans (`38e1f401dc10e491.js`)**: Default firmware pre-populates **Plan 1** (`Oval ikut garis`), **Plan 3** (`Siku & persimpangan`), **Plan 4** (`Ganti warna garis`), and **Plan 6** (`KRPY`). **Plan 2** is empty by default — use Plan 2 for custom competition tracks like **Technowars 5**.
+- **Corner & `"Cari garis"` Physics**: Because sensors sit `142.8 mm` ahead of the rear axle, pure spin turns (`L=-100, R=150`) miss perpendicular lines ahead; arc turns (`L=10, R=70` / `L=70, R=10` with `D=50..70, mode_delay=1`) advance into the corner and trigger `"Cari garis"` (`0.8 * L/R` masked by `8176` or `1022`) reliably with minimal tire slip.
+- **Zero-Loop Obstacle Rules**:
+  - **Symmetric Hourglass / Circle**: Use `RUN_MODE=0 (FL.CENTER)` with `PID_NUM=1..2` (using `FL.LEFT` on an hourglass triggers 1–2 spinning loops on the left wall).
+  - **Final Circle + T-Bar Finish**: Use `RUN_MODE=1 (FL.LEFT)` with gentle `SA=45, PID_NUM=1` to exit cleanly without 50/50 branch coin-flips, then park with `ACT=0` gentle arc (`L=45, R=65, D=135, mode_delay=2`) onto the finish bar.
+
+---
+
+## 5. Setting Robot Tuning Playbook (LQR, RPM Multiplier, Throttle & Multi-Seed Stability)
+
+Verified via 30-to-50-seed Monte Carlo simulations (`runVariation = 1`, `sensorNoise = 0.04`) on Ichibot Ultimate 5 Max firmware:
+
+1. **`PID_NUM` is 0-Indexed (`0..4`, and `5` wraps to `0`)**:
+   - `followLine()` indexes `lqr[s]` directly (`if (s >= 5) s = 0`).
+   - `0`: softest (`Q1=122, Q2=740`), `1`: medium (`276/3135`), `2`: stiff (`490/7150`), `3`: very stiff (`766/12785` — S-curve / coils), `4`: ultra-stiff (`1322/20020` — sharp Resistor corners).
+2. **`RPM Multiplier` (`rpmMultiplierX10`) Couples Speed AND Steering Gain**:
+   - `setMotor(r, n)` multiplies **both** base speed `SA/SB` **and** LQR steering output `out` by `rpmMultiplierX10 / 10`.
+   - Running a `1.1`-tuned plan on a simulator set to `1.5` increases steering aggressiveness by `1.36×` and causes `0/30` crashes on zigzags; even after re-tuning with default LQR, `1.5` drops 50-seed accuracy from **68% (`34/50`, 27.47s best)** down to **20% (`10/50`, 27.76s best)**.
+   - **Rule:** Keep `RPM Control = ON`, **`RPM Multiplier = 1.1`** (default), and **`Throttle = 2`** (default; `Throttle = 0` drops stability from `19/30` to `14/30`).
+3. **LQR `Tf` (Derivative Filter) & `DT` Guardrails**:
+   - **Keep `Tf = 0 ms`** — any `Tf >= 4 ms` introduces derivative phase lag and causes `0/30` failures on sharp zigzags.
+   - **Keep `DT = 2 ms`** — `DT = 1 ms` with default `Q1/Q2` amplifies `sensorNoise = 0.04` jitter (`21/30 -> 3/30`).
+4. **Anti-Overshoot Corner Braking & Fast Pivot Turns**:
+   - End `TA` (`mode_TA=1`, mm) **150–250 mm before 90° corners** and brake via `SB = 40..50, TB = 99999, SB_MODE = 1 (FREE)` to eliminate wide corner overshoot ("loncat") before the turn trigger.
+   - Fast sweep-pivot turns (`L = -20, R = 145, D = 62, mode_delay = 1`) cut ~0.1s per open corner; keep gentler arcs (`L = 10, R = 105, D = 64`) on sensitive corners (e.g. Capacitor entry).
+5. **High-Reliability Trigger Patterns on Complex Tracks**:
+   - **White-line-in-Black-Box entry:** Use `sv = 3` (`■■■________■■■` XOR) instead of `sv = 20` (all-black), because the white centerline prevents all 14 sensors from reading black simultaneously.
+   - **Mid-track Encoder Re-Sync:** Insert a `sv = 15` re-sync on crossbars (e.g., `H` in `ICHIBOT`) + short `33 mm` `FL.RIGHT` offset before switching to `FL.LEFT` to zero out accumulated wheel-slip drift.
+   - **Closed-Loop Exits (`O` -> `T`):** Force a short `180 mm` `RUN_MODE = 2 (FL.RIGHT)` segment to guarantee exiting right instead of looping around the `O`.
+   - **Axle vs. Sensor Visual Offset:** The 14-sensor bar sits `142.8 mm` ahead of the rear axle; rear-axle trajectory plots naturally trace an inner arc at angled junctions (`_/-`) even when the front sensor bar tracks the exact black line (`Shortcut = 0`).

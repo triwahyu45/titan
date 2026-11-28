@@ -2,13 +2,43 @@
 
 Derived from `S`, `T`, `TrackSampler`, `TRACKS`, and `CompetitionTracker` in `robotics.ichibot.id/simulator`.
 
+### 4. Exact Mathematical Invariance Transfer (`RPM Multiply` Scaling)
+- Scaling `rpmMultiplierX10` from `M0` (e.g. `11` = `1.1x`) to `M1` (`r = M0 / M1`) preserves closed-loop trajectory physics when **both** Plan and LQR are scaled:
+  - `SA *= r`, `SB *= r`, `L *= r`, `R *= r`, `defaultSpeed *= r`
+  - `LQR.Q1 *= r^2`, `LQR.Q2 *= r^2`, `LQR.Max *= r`, `LQR.Min *= r` (keeping `Q0=0, Tf=0, DT=2`).
+- **Offline Local Simulator Mirror (`LF Ichibot/local_simulator/`)**: Pure Node HTTP server (`server.mjs`) serving mirrored Next.js static chunks + `tracks/` + `competition.json` with local `/api/local/bootstrap` injecting `ichibot-simulator-v1` into `localStorage` and stubbing `/api/simulator/competition/submit` locally.
+
 ---
 
 ## 1. 2D Rigid-Body Vehicle Dynamics (`dt = 0.25 ms` / `4 kHz`)
 
 ### Default Physical Parameters (`defaultPhysics`)
 | Parameter | Value | Parameter | Value |
-|---|---|---|---|
+|### 4. Exact Mathematical Invariance Transfer (`RPM Multiply` Scaling)
+- Scaling `rpmMultiplierX10` from `M0` (e.g. `11` = `1.1x`) to `M1` (`r = M0 / M1`) preserves closed-loop trajectory physics when **both** Plan and LQR are scaled:
+  - `SA *= r`, `SB *= r`, `L *= r`, `R *= r`, `defaultSpeed *= r`
+  - `LQR.Q1 *= r^2`, `LQR.Q2 *= r^2`, `LQR.Max *= r`, `LQR.Min *= r` (keeping `Q0=0, Tf=0, DT=2`).
+- **Offline Local Simulator Mirror (`LF Ichibot/local_simulator/`)**: Pure Node HTTP server (`server.mjs`) serving mirrored Next.js static chunks + `tracks/` + `competition.json` with local `/api/local/bootstrap` injecting `ichibot-simulator-v1` into `localStorage` and stubbing `/api/simulator/competition/submit` locally.
+
+---|### 4. Exact Mathematical Invariance Transfer (`RPM Multiply` Scaling)
+- Scaling `rpmMultiplierX10` from `M0` (e.g. `11` = `1.1x`) to `M1` (`r = M0 / M1`) preserves closed-loop trajectory physics when **both** Plan and LQR are scaled:
+  - `SA *= r`, `SB *= r`, `L *= r`, `R *= r`, `defaultSpeed *= r`
+  - `LQR.Q1 *= r^2`, `LQR.Q2 *= r^2`, `LQR.Max *= r`, `LQR.Min *= r` (keeping `Q0=0, Tf=0, DT=2`).
+- **Offline Local Simulator Mirror (`LF Ichibot/local_simulator/`)**: Pure Node HTTP server (`server.mjs`) serving mirrored Next.js static chunks + `tracks/` + `competition.json` with local `/api/local/bootstrap` injecting `ichibot-simulator-v1` into `localStorage` and stubbing `/api/simulator/competition/submit` locally.
+
+---|### 4. Exact Mathematical Invariance Transfer (`RPM Multiply` Scaling)
+- Scaling `rpmMultiplierX10` from `M0` (e.g. `11` = `1.1x`) to `M1` (`r = M0 / M1`) preserves closed-loop trajectory physics when **both** Plan and LQR are scaled:
+  - `SA *= r`, `SB *= r`, `L *= r`, `R *= r`, `defaultSpeed *= r`
+  - `LQR.Q1 *= r^2`, `LQR.Q2 *= r^2`, `LQR.Max *= r`, `LQR.Min *= r` (keeping `Q0=0, Tf=0, DT=2`).
+- **Offline Local Simulator Mirror (`LF Ichibot/local_simulator/`)**: Pure Node HTTP server (`server.mjs`) serving mirrored Next.js static chunks + `tracks/` + `competition.json` with local `/api/local/bootstrap` injecting `ichibot-simulator-v1` into `localStorage` and stubbing `/api/simulator/competition/submit` locally.
+
+---|### 4. Exact Mathematical Invariance Transfer (`RPM Multiply` Scaling)
+- Scaling `rpmMultiplierX10` from `M0` (e.g. `11` = `1.1x`) to `M1` (`r = M0 / M1`) preserves closed-loop trajectory physics when **both** Plan and LQR are scaled:
+  - `SA *= r`, `SB *= r`, `L *= r`, `R *= r`, `defaultSpeed *= r`
+  - `LQR.Q1 *= r^2`, `LQR.Q2 *= r^2`, `LQR.Max *= r`, `LQR.Min *= r` (keeping `Q0=0, Tf=0, DT=2`).
+- **Offline Local Simulator Mirror (`LF Ichibot/local_simulator/`)**: Pure Node HTTP server (`server.mjs`) serving mirrored Next.js static chunks + `tracks/` + `competition.json` with local `/api/local/bootstrap` injecting `ichibot-simulator-v1` into `localStorage` and stubbing `/api/simulator/competition/submit` locally.
+
+---|
 | `massKg` | `0.39 kg` | `iz` | `0.0037 * massKg` (`0.001443 kg·m²`) |
 | `batteryV` | `12.0 V` | `batteryRintOhm` | `0.15 Ω` |
 | `motorStallTorqueKgCm` | `0.8 kg·cm` | `motorNoLoadRpm` | `2856 RPM` |
@@ -33,11 +63,22 @@ Derived from `S`, `T`, `TrackSampler`, `TRACKS`, and `CompetitionTracker` in `ro
    - `du/dt = sumFx / m + v * r`, `dv/dt = sumFy / m - u * r`, `dr/dt = sumMz / iz`.
    - Battery voltage sags with `tau = 2 ms` toward `V_nom - R_int * (I_L + I_R + 0.15)`.
 
+### 4. Exact Mathematical Invariance Transfer (`RPM Multiply` Scaling)
+- Scaling `rpmMultiplierX10` from `M0` (e.g. `11` = `1.1x`) to `M1` (`r = M0 / M1`) preserves closed-loop trajectory physics when **both** Plan and LQR are scaled:
+  - `SA *= r`, `SB *= r`, `L *= r`, `R *= r`, `defaultSpeed *= r`
+  - `LQR.Q1 *= r^2`, `LQR.Q2 *= r^2`, `LQR.Max *= r`, `LQR.Min *= r` (keeping `Q0=0, Tf=0, DT=2`).
+- **Offline Local Simulator Mirror (`LF Ichibot/local_simulator/`)**: Pure Node HTTP server (`server.mjs`) serving mirrored Next.js static chunks + `tracks/` + `competition.json` with local `/api/local/bootstrap` injecting `ichibot-simulator-v1` into `localStorage` and stubbing `/api/simulator/competition/submit` locally.
+
 ---
 
 ## 2. Stochastic Run Variation & Optical Sensor Model
 
 - **Per-Run Variation (`runVariation = 1`)**: Mulberry32 PRNG seeds per-run asymmetry: motor gain `±1%`, wheel radius `±0.2%`, tire grip `±1.5%`, start pose jitter `±0.75 mm` and `±0.3°`.
+- **Trail Slip Color Thresholds (`38e1f401dc10e491.js:1145-1146`)**: Simulator renders trail segments using `slip = min(1, max(gripUseL, gripUseR))`:
+  - `slip > 0.95`: `#ef4444` (**Red** — saturated/skidding)
+  - `0.75 < slip <= 0.95`: `#f59e0b` (**Amber**)
+  - `slip <= 0.75`: `#10b981` (**Green** — clean grip)
+  - **Low-Slip Tuning Rule**: High-PWM turns (`150/10`) + aggressive `PID_NUM=3` drive ~47% red slip; dropping corner PWM to `70/10` (or `-14/70`) and using `PID_NUM=1` (straights) / `PID_NUM=2` (oscillators/resistors) slashes red slip to `~13.5%` (`~74%` green) with 100% finish reliability.
 - **Grip Noise**: Ornstein-Uhlenbeck process (`sigma = 0.02`, `tau = 50 ms`) active only during `ACT` phases (`gripNoiseActive = true`).
 - **Track Sampling (`TrackSampler`)**:
   - **Vector Tracks**: 40 mm spatial hash grid of line segments; exact point-to-segment distance `d`.
@@ -47,20 +88,32 @@ Derived from `S`, `T`, `TrackSampler`, `TRACKS`, and `CompetitionTracker` in `ro
   - Normalized line darkness `n = (0.92 - reflectance) / 0.86`.
   - Per-channel 12-bit ADC: `adc[ch] = clamp(round(S[ch] + (R[ch] - S[ch]) * n + uniform(-1,1) * sensorNoise * 3000), 0, 4095)`, where `S[ch] ∈ [300, 480]` (white) and `R[ch] ∈ [2700, 3400]` (black).
 
+### 4. Exact Mathematical Invariance Transfer (`RPM Multiply` Scaling)
+- Scaling `rpmMultiplierX10` from `M0` (e.g. `11` = `1.1x`) to `M1` (`r = M0 / M1`) preserves closed-loop trajectory physics when **both** Plan and LQR are scaled:
+  - `SA *= r`, `SB *= r`, `L *= r`, `R *= r`, `defaultSpeed *= r`
+  - `LQR.Q1 *= r^2`, `LQR.Q2 *= r^2`, `LQR.Max *= r`, `LQR.Min *= r` (keeping `Q0=0, Tf=0, DT=2`).
+- **Offline Local Simulator Mirror (`LF Ichibot/local_simulator/`)**: Pure Node HTTP server (`server.mjs`) serving mirrored Next.js static chunks + `tracks/` + `competition.json` with local `/api/local/bootstrap` injecting `ichibot-simulator-v1` into `localStorage` and stubbing `/api/simulator/competition/submit` locally.
+
 ---
 
 ## 3. Built-In Tracks & Reference Plans
 
-### 9 Built-In Tracks
-1. `oval` (**Oval Latihan**): 2× `1200 mm` straights + 2× `R350 mm` 180° turns, `lineWidth = 20 mm`.
-2. `siku` (**Siku 90° dan Persimpangan**): 90° right/left turns + `+` cross.
-3. `warna` (**Zona Warna Terbalik**): Loop with `invertZones: [{x:300, y:1050, w:700, h:300}]`.
-4. `technowars` (**Technowars 5**): `2400 × 4051 mm` raster SDF.
-5. `krpy` (**KRPY Track 1**): `6600 × 3400 mm` (Red & Blue starts).
-6. `elsemar` (**ELSEMAR 2026**): `4500 × 3500 mm` (Red & Blue starts).
-7. `pe2026` (**PE 2026 LF Advance**): `4500 × 8000 mm` (Red & Blue starts).
-8. `brc2026` (**Arena LF BRC 2026**): `6000 × 3000 mm` (Red & Blue starts).
-9. `kompetisi1` (**Kompetisi Ichibot #1**): `5800 × 3420 mm`, `lineWidth = 20 mm`, `112` competition waypoint groups (Red & Blue starts).
+### 10 Built-In Tracks (`robotics.ichibot.id/simulator`)
+1. `oval` (**Oval Latihan**): `2× 1200 mm` straights + `2× R350 mm` 180° turns, `lineWidth = 20 mm`.
+2. `siku` (**Siku 90° dan Persimpangan**): 90° right/left turns + `+` cross, `lineWidth = 20 mm`.
+3. `warna` (**Zona Warna Terbalik**): Loop with `invertZones: [{x:300, y:1050, w:700, h:300}]`, `lineWidth = 20 mm`.
+4. `technowars` (**Technowars 5**): `2400 × 4051 mm` raster SDF (`lineWidth = 18 mm`). Features bottom `2× T` + S-curves + Diode + Square Loop + White-box Invert + Dashed line + Triangle/Square/AND-gate + Coils + Resistor + Butterfly + Top Circle (`sv = 15/8`, `PID = 2..4`).
+5. `krpy` (**KRPY Track 1**): `6600 × 3400 mm` (`lineWidth = 18 mm`, Red/Blue mirror `vertikal`). Zigzags -> AND-gate + Helmet -> Capacitor + Coils + Dashed -> Op-Amp + Sine-Wave -> Invert Resistor + Hex -> `2026` -> Checkerboard -> `INSPIRE` (`K-R-P-Y` center).
+6. `krpy2` (**KRPY Track 2**): `6600 × 4400 mm` (`lineWidth = 20 mm`, Red/Blue mirror `vertikal`). Extended `krpy` with lower loop: Ground/Vertical Resistor -> `U-W-U` turns -> Dashed-Circle -> Invert White-Dashed-Line -> Central Black Box Finish.
+7. `elsemar` (**ELSEMAR 2026**): `4500 × 3500 mm` (`lineWidth = 18 mm`, Red/Blue mirror `putar` 180°). Start -> Resistor -> Butterfly -> Star -> `ESC#14` -> Hex -> S-curve -> Diamond -> `HMTE` + Hourglass + Resistor -> `UNS` + Double-Diamonds -> Checkerboard + Spiral + Central Lightbulb Finish.
+8. `pe2026` (**PE 2026 LF Advance**): `4500 × 8000 mm` (`lineWidth = 18 mm`, Red/Blue mirror `horizontal`). Battery + Resistor -> `HMTE` -> Diode + Loops + Capacitor -> Logic Gates -> Honeycomb Invert -> Transistor -> `PE2026` + Variable Resistor -> 3-Circle Venn -> White-Zigzag Invert -> Inductor + Bull-Head -> Finish.
+9. `brc2026` (**Arena LF BRC 2026**): `6000 × 3000 mm` (`lineWidth = 18 mm`, Red/Blue mirror `vertikal`). Diamond -> `2026` -> Invert Resistor -> Sine-Wave -> Circle-X -> Hexagon + Dashed Y-fork + Coils -> Invert Double-Butterfly + Dashed-Circle -> Loop-pin -> `BRC` + Checker-arc + `BRC` Crown + Finish.
+10. `kompetisi1` (**Kompetisi Ichibot #1**): `5800 × 3420 mm` (`lineWidth = 20 mm`, Red/Blue mirror `vertikal`), `102` waypoint groups (`111` waypoints). Combines 4 Zigzags + Diamond + Black Box + 3-Circle Venn + Hourglass + `2026` + `ICHIBOT` + Top Sine-Wave.
+
+### Competition Anti-Shortcut Rule (`CompetitionTracker` + `SENSOR_BOARD`)
+- Live simulator checks waypoints (`g = 1..total`, `r = 15 mm`) against the **47-vertex concave `SENSOR_BOARD` polygon** (not full-body `ROBOT_CORNERS`, which is only used for the final Finish line cross).
+- Because `SENSOR_BOARD` is concave (T-shaped front sensor wing), `pointHitsPoly` **must** use ray-casting + segment-distance (`(a.y > py) !== (b.y > py) && ...`) rather than a convex-only winding check.
+- Hitting a later waypoint group `g > reached + 1` before `reached` triggers `shortcutAt = e + 1` (`Pelanggaran shortcut`).
 
 ### 4 Built-In Example Plans (Patterns)
 - **P1 (`oval`)**: `stopAtIndex=0, stopAtStep=1, defaultSpeed=90`, `i:000: sensor_type=0, TA=5510, mode_TA=3` (pure line-following by right-encoder mm).

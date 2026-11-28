@@ -51,3 +51,17 @@ Field-verified control-theory, navigation, telemetry, and pre-hardware `Python/N
 
 - Validate control laws in a lightweight `500 Hz` **Python/NumPy RK4** ODE model using real datasheet motor torque, back-EMF, voltage ceiling, and measured part masses before flashing hardware.
 - Downsample state snapshots to `60 fps` JSON to drive `STUDIO` (`SIM-GRID` Three.js/Remotion) for visual debugging of overshoot, windup, and trajectory tracking.
+
+---
+
+## 7. Curriculum Reinforcement Learning (Sparse-Reward Locomotion & Obstacle Climbing)
+
+- **Why Direct Full-Difficulty Training Fails**: Training a quadruped/legged policy directly on a hard sparse-reward obstacle (e.g., a `40 cm` step) yields `0` early successes → zero positive gradient → policy learns nothing (`0/10` clears across 320 tries).
+- **Adaptive Difficulty Curriculum Loop**:
+  1. Start at a trivially solvable stage (e.g., `5 cm` step).
+  2. **Promote** difficulty incrementally (`5 cm → 23 cm → 26 cm → 40 cm`) once rolling success rate clears `70–80%`.
+  3. **Demote** on collapse (bidirectional terrain curriculum) and mix `10–20%` easier stages to prevent catastrophic forgetting (reaches `10/10` clears on `40 cm`).
+- **Reward Shaping, Domain Randomization & Compute Offload**:
+  - Pair terminal goal reward with dense progress/stability shaping + torque and action-rate penalties.
+  - Add domain randomization (friction, mass, motor lag) **only after** the base curriculum clears the target obstacle.
+  - Offload heavy MuJoCo / MJX PPO training runs to **`NOVA`** (free Colab T4/L4 GPU).
