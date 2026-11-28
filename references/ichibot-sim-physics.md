@@ -120,3 +120,20 @@ Derived from `S`, `T`, `TrackSampler`, `TRACKS`, and `CompetitionTracker` in `ro
 - **P3 (`siku`)**: `stopAtIndex=4, stopAtStep=0, defaultSpeed=60`, uses `PID_NUM=1`, `sensor_value=8` (90° right), `15` (90° left), `5` (cross), `mode_delay=1/2/3` & `mode_TA=2/3`.
 - **P4 (`warna`)**: `stopAtIndex=2, stopAtStep=1, defaultSpeed=80`, `i:001` switches `line_color=1` (WHITE) with `SB=100, TB=99999, SB_MODE=1 (FREE)` until `i:002` (`sensor_value=4`) switches back to `line_color=0` (BLACK).
 - **P6 (`krpy`)**: `stopAtIndex=7, stopAtStep=1, defaultSpeed=60`, chains 4 `sensor_type=0` (`Motion`) segments in a row (`i:001..i:004`) by timing `TA` precisely before turns, then switches to `PID_NUM=4` for high-speed finale.
+
+---
+
+## Verified Simulator Import & Play-to-Play Variation Rules (`f3455ebd8e7291ed.js`)
+
+1. **`Import Excel` (`ty()`) Ignores `Setting Robot`**:
+   - Importing an `.xlsx` backup into `robotics.ichibot.id/simulator` **only** applies `s.plans` (`Plan 1..9`, `settings`, `indexes`, `cpActions`) and **ignores `s.robotSettings`** (`RPM Multiply`, `LQR 1..5`, `PID 1..5`, `Throttle`, `Sensor Sensitivity`).
+   - Any non-default `RPM Multiply` or `LQR` tuning **must** be entered manually in the simulator's OLED menu before clicking Play (or pre-loaded via local state).
+2. **Exact Play-to-Play Randomization (`runVariation = 1`)**:
+   - Every Play click draws fresh PRNG values for 6 exact physical perturbations:
+     - `gain`: `[1 ± 1.0%, 1 ± 1.0%]` (left/right motor torque asymmetry)
+     - `wheel`: `[1 ± 0.2%, 1 ± 0.2%]` (left/right wheel radius tolerance)
+     - `grip`: `[1 ± 1.5%, 1 ± 1.5%]` (left/right tire friction)
+     - `gripNoise`: OU process `σ = 2.0%` (clipped `±6%`), active **only** while `gripNoiseActive == true` during index `action()`
+     - Start pose jitter: `±0.75 mm` X/Y and `±0.3°` heading
+     - `sensorNoise`: `0.04` (`±120` ADC counts) per sensor read
+   - **Fast Verification Shortcut**: Instead of running 100+ blind Monte Carlo seeds on every candidate, test the **16 deterministic extreme corners** of these 6 factors first (`CORNER_16`), then confirm on `UNSEEN_200` + `openpyxl` Excel round-trip.
